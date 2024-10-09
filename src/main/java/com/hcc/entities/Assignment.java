@@ -1,5 +1,6 @@
 package com.hcc.entities;
 
+import com.hcc.enums.AssignmentStatusEnum;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ public class Assignment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String status;
+    private AssignmentStatusEnum status;
     private int number;
     private String githubUrl;
     private String branch;
@@ -22,7 +23,7 @@ public class Assignment {
     public Assignment() {
     }
 
-    public Assignment(String status,
+    public Assignment(AssignmentStatusEnum status,
                       int number,
                       String githubUrl,
                       String branch,
@@ -46,11 +47,11 @@ public class Assignment {
         this.id = id;
     }
 
-    public String getStatus() {
+    public AssignmentStatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(AssignmentStatusEnum status) {
         this.status = status;
     }
 

@@ -50,7 +50,7 @@ public class LoginController {
     public ResponseEntity<HttpStatus> register(@RequestBody AuthCredentialsRequest request) {
         String encodedPassword = passwordEncoder.getPasswordEncoder().encode(request.getPassword());
 
-        User user = new User(LocalDate.now(), request.getUsername(), encodedPassword);
+        User user = new User(LocalDate.now(), request.getUsername(), encodedPassword, null);
 
         repository.save(user);
 

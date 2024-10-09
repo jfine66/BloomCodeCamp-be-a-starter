@@ -55,6 +55,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         // Used to restrict access to end points based off of roles
-        // http.authorizeRequests().antMatchers("/endPoint").hasAnyRole("roleName")c
+        // http.authorizeRequests().antMatchers("/endPoint").hasAnyRole("roleName")
     }
 }

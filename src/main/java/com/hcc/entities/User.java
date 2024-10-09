@@ -1,6 +1,7 @@
 package com.hcc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hcc.enums.AuthorityEnum;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -21,24 +22,26 @@ public class User implements UserDetails {
     private String username;
     @JsonIgnore
     private String password;
-//    private List<Authority> authorities;
+    @OneToMany(mappedBy = "user")
+    private List<Authority> authorities;
 
     public User() {
     }
 
     public User(LocalDate cohortStartDate,
                 String username,
-                String password) {
+                String password,
+                List<Authority> authorities) {
         this.cohortStartDate = cohortStartDate;
         this.username = username;
         this.password = password;
-//        this.authorities = authorities;
+        this.authorities = authorities;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new Authority("role_student"));
+        roles.add(new Authority(AuthorityEnum.ROLE_LEARNER.toString()));
         return roles;
     }
 

@@ -3,15 +3,16 @@ package com.hcc.entities;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
-//@Entity
-@Component
+@Entity
 public class Authority implements GrantedAuthority {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String authority;
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Authority() {
