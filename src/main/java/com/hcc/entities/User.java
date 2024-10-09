@@ -1,17 +1,25 @@
 package com.hcc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@Entity
+@Table(name="LMS_User")
 public class User implements UserDetails {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private LocalDate cohortStartDate;
     private String username;
+    @JsonIgnore
     private String password;
 //    private List<Authority> authorities;
 
@@ -56,12 +64,20 @@ public class User implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setUsername(String username) {

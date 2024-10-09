@@ -12,6 +12,7 @@ public class CustomPasswordEncoder {
 
     public CustomPasswordEncoder(){
         this.passwordEncoder = new BCryptPasswordEncoder();
+
     }
 
     public PasswordEncoder getPasswordEncoder(){

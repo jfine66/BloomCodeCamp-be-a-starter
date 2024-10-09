@@ -1,9 +1,13 @@
 package com.hcc.entities;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Component;
 
+import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+//@Entity
+@Component
 public class Authority implements GrantedAuthority {
     private long id;
     private String authority;
