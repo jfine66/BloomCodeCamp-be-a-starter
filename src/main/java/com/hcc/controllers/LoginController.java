@@ -2,8 +2,11 @@ package com.hcc.controllers;
 
 import com.hcc.dto.AuthCredentialsRequest;
 import com.hcc.dto.UserDto;
+import com.hcc.entities.Authority;
 import com.hcc.entities.User;
+import com.hcc.enums.AuthorityEnum;
 import com.hcc.exceptions.ResourceNotFoundException;
+import com.hcc.repositories.AuthoritiesRepo;
 import com.hcc.repositories.UserRepository;
 import com.hcc.services.UserDetailServiceImpl;
 import com.hcc.utils.CustomPasswordEncoder;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 @RestController
@@ -51,6 +55,10 @@ public class LoginController {
         String encodedPassword = passwordEncoder.getPasswordEncoder().encode(request.getPassword());
 
         User user = new User(LocalDate.now(), request.getUsername(), encodedPassword, null);
+
+        List<Authority> authorities = List.of(new Authority(AuthorityEnum.ROLE_LEARNER.toString(), user));
+
+        user.setAuthorities(authorities);
 
         repository.save(user);
 

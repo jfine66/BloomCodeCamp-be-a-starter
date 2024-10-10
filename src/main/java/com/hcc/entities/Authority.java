@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 public class Authority implements GrantedAuthority {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String authority;
     @ManyToOne
@@ -16,6 +16,11 @@ public class Authority implements GrantedAuthority {
     private User user;
 
     public Authority() {
+    }
+
+    public Authority(String authority, User user) {
+        this.authority = authority;
+        this.user = user;
     }
 
     public Authority(String authority) {
