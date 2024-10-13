@@ -1,6 +1,7 @@
 package com.hcc.filters;
 
 import com.hcc.repositories.UserRepository;
+import com.hcc.services.UserDetailServiceImpl;
 import com.hcc.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +25,7 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 @Component
 public class jwtFilter extends OncePerRequestFilter {
     @Autowired
-    private UserRepository userRepo;
+    private UserDetailServiceImpl userDetailService;
 
     @Autowired
     private JWTUtils jwtUtils;
@@ -44,7 +45,7 @@ public class jwtFilter extends OncePerRequestFilter {
         final String token = header.split(" ")[1].trim();
 
         // Get user identity
-        UserDetails userDetails = userRepo.findByUsername(jwtUtils.getUsernameFromToken(token)).orElse(null);
+        UserDetails userDetails = userDetailService.loadUserByUsername(jwtUtils.getUsernameFromToken(token));
 
         if (!jwtUtils.validateToken(token, userDetails)) {
             filterChain.doFilter(request,response);

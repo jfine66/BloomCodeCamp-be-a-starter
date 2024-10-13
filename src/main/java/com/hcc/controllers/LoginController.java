@@ -51,7 +51,7 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<HttpStatus> register(@RequestBody AuthCredentialsRequest request) {
+    public UserDto register(@RequestBody AuthCredentialsRequest request) {
         String encodedPassword = passwordEncoder.getPasswordEncoder().encode(request.getPassword());
 
         User user = new User(LocalDate.now(), request.getUsername(), encodedPassword, null);
@@ -62,7 +62,9 @@ public class LoginController {
 
         repository.save(user);
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        User userFromDb = (User) userDetailService.loadUserByUsername(user.getUsername());
+
+        return new UserDto(userFromDb.getId(), userFromDb.getUsername(), jwtUtils.generateToken(userFromDb));
     }
 
     @GetMapping("/validate")
