@@ -1,6 +1,5 @@
 package com.hcc.filters;
 
-import com.hcc.repositories.UserRepository;
 import com.hcc.services.UserDetailServiceImpl;
 import com.hcc.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
